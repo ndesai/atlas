@@ -1,0 +1,28 @@
+// Booking System
+
+
+// - Generic booking system
+//     - Airbnb
+//     - Park on my driveway
+//     - Use my electric charger
+// - Available Booking is the basic unit
+//     - Asset
+//     - Date/time
+//     - Cost
+// - Completed Booking
+//     - Available Booking
+//     - User
+// - Collection of Assets
+//     - Category
+//     - Sub-assets (House with multiple Rooms, Driveway with two spots)
+// - Date/time
+
+namespace atlas.taker;
+
+table Booking {
+    asset:string;
+    datetime:string;
+    cost:string;
+}
+
+root_type Booking;
