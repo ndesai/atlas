@@ -1,0 +1,7 @@
+{
+    "image": { "dockerfile": "Dockerfile" },
+    "extensions": [
+        
+    ],
+    "forwardPorts": [3000]
+  }
