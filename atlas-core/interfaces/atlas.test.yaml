@@ -1,0 +1,3 @@
+atlas.test.Car:
+    singleton: true
+    base: QObject

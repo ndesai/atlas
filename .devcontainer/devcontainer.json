@@ -1,7 +1,6 @@
 {
-    "image": { "dockerfile": "Dockerfile" },
-    "extensions": [
-        
-    ],
-    "forwardPorts": [3000]
+    "build": { "dockerfile": "Dockerfile" },
+    "extensions": [],
+    "forwardPorts": [3000],
+    "postCreateCommand": "bash scripts/deps.sh"
   }

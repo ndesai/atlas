@@ -1,0 +1,44 @@
+module atlas.test 1.0
+
+struct Color {
+    /**
+    * @brief Color hex value
+    */
+    string hexValue
+}
+
+struct Package {
+    /**
+    * @brief Package code
+    */
+    int packageCode
+    /**
+    * @brief Description
+    */
+    string description
+}
+
+interface Car {
+    /**
+    * @brief Vehicle color
+    */
+    Color vehicleColor
+    /**
+    * @brief Interior color
+    */
+    Color interiorColor
+    /**
+    * @brief Vehicle packages
+    */
+    list<Package> packages
+
+    /**
+    * @brief Turn car on
+    */
+    void turnIgnitionOn()
+
+    /**
+    * @brief Turn car off
+    */
+    void turnIgnitionOff()
+}
