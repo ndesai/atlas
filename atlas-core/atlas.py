@@ -10,7 +10,7 @@ class AtlasFormatter:
     def format_module_name(name: str, delimiter: str, prefix: str = '', suffix: str = ''):
         return f"{prefix}{delimiter.join(name.split('.'))}{suffix}"
 
-class AtlasSystem():
+class AtlasSystem(object):
     """ Atlas System """
     def __init__(self, qface_system: domain.System):
         # Initialize properties
@@ -28,23 +28,24 @@ class AtlasSystem():
         return self.qface_system.lookup(name)
 
     def process_modules(self):
+        """ Process the modules from the qface_system into the atlas system """
         if not self.qface_system:
             self._is_system_initialized = False
             return
 
+        self._is_system_initialized = True
+
         for module in self.qface_system.modules:
             self.atlas_modules.append(AtlasModule(self, module))
         self.order_modules_by_dependencies()
-
-        self._is_system_initialized = True
 
     def get_module_dependencies(self, module_name: str):
         """ Return the module dependencies for a module identified by module_name """
         dependencies = list()
         qface_module = self.lookup(module_name)
 
-        if not self.is_system_initialized:
-            print(f"ERROR: System is not initialized")
+        if not self._is_system_initialized:
+            print(f"ERROR: System is not initialized, unable to lookup {module_name}")
             return dependencies
 
         if qface_module is None:
@@ -92,7 +93,7 @@ class AtlasSystem():
 
         self.atlas_modules = ordered_atlas_modules
 
-class AtlasModule():
+class AtlasModule(object):
     """ Atlas Module """
     def __init__(self, atlas_system: AtlasSystem, qface_module: domain.Module):
         # Initialize properties
@@ -133,7 +134,7 @@ class AtlasStruct(object):
 class AtlasEnum(object):
     pass
 
-class AtlasGen:
+class AtlasGen(object):
     """ AtlasGen """
 
     def __init__(self, interface_path):
@@ -184,4 +185,3 @@ class AtlasGen:
                     print(f"\t\t_field: {_field.type.name} {_field.name} (qualified_name: {_field.qualified_name})")
 
         pass
-

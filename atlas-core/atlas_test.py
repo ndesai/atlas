@@ -25,3 +25,11 @@ def test_invalid_atlas_system():
     assert atlas_gen.system != None
     assert atlas_gen.system.is_system_initialized == False
 
+def test_module_order(atlas_gen):
+    # Modules should be ordered based on their dependencies
+    atlas_modules = atlas_gen.system.atlas_modules
+    assert len(atlas_modules) >= 4
+    assert atlas_modules[0].name == "atlas.common"
+    assert atlas_modules[1].name == "atlas.car"
+    assert atlas_modules[2].name == "atlas.comics.marvel"
+    assert atlas_modules[3].name == "atlas.comics.dc"
