@@ -1,0 +1,19 @@
+module atlas.common 1.0
+
+struct Color {
+    /**
+    * @brief Color hex value
+    */
+    string hexValue
+}
+
+struct SuperPower {
+    /**
+    * @brief A description of the super power
+    */
+    string description
+    /**
+    * @brief The power level of the super power
+    */
+    int powerLevel
+}

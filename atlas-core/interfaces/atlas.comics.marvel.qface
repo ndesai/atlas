@@ -1,0 +1,31 @@
+module atlas.comics.marvel 1.0
+import atlas.common 1.0
+import atlas.car 1.0
+
+interface SpiderMan {
+    list<atlas.common.Color> colors
+    atlas.car.Car car
+    list<atlas.common.SuperPower> superPowers
+}
+
+interface Wolverine {
+    list<atlas.common.Color> colors
+    atlas.car.Car car
+    list<atlas.common.SuperPower> superPowers
+}
+
+interface Thor {
+    list<atlas.common.Color> colors
+    atlas.common.SuperPower superPower
+}
+
+interface IronMan {
+    list<atlas.common.Color> colors
+    atlas.car.Car car
+    list<atlas.common.SuperPower> superPowers
+}
+
+interface Hulk {
+    list<atlas.common.Color> colors
+    atlas.common.SuperPower superPower
+}

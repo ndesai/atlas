@@ -1,0 +1,15 @@
+module atlas.comics.dc 1.0
+import atlas.common 1.0
+import atlas.car 1.0
+
+interface Superman {
+    list<atlas.common.Color> colors
+    atlas.car.Car car
+    list<atlas.common.SuperPower> superPowers
+}
+
+interface Batman {
+    list<atlas.common.Color> colors
+    atlas.car.Car car
+    list<atlas.common.SuperPower> superPowers
+}

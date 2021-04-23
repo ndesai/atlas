@@ -1,11 +1,5 @@
-module atlas.test 1.0
-
-struct Color {
-    /**
-    * @brief Color hex value
-    */
-    string hexValue
-}
+module atlas.car 1.0
+import atlas.common 1.0
 
 struct Package {
     /**
@@ -22,7 +16,7 @@ interface Car {
     /**
     * @brief Vehicle color
     */
-    Color vehicleColor
+    atlas.common.Color vehicleColor
     /**
     * @brief Interior color
     */
