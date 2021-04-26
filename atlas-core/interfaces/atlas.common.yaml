@@ -1,2 +1,4 @@
 atlas.common.Color:
     type: COLOR
+atlas.common.Speed:
+    type: SPEED

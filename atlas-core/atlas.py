@@ -2,6 +2,17 @@ from path import Path
 from qface.generator import FileSystem, Generator
 import qface.idl.domain as domain
 import typing
+import sys
+
+primitive_types = [
+    'void',
+    'bool',
+    'int',
+    'real',
+    'string',
+    'list',
+    'ubyte'
+]
 
 class AtlasFormatter:
     """ Atlas Formatter """
@@ -38,6 +49,7 @@ class AtlasSystem(object):
         for module in self.qface_system.modules:
             self.atlas_modules.append(AtlasModule(self, module))
         self.order_modules_by_dependencies()
+        self.validate_types()
 
     def get_module_dependencies(self, module_name: str):
         """ Return the module dependencies for a module identified by module_name """
@@ -92,6 +104,51 @@ class AtlasSystem(object):
                     ordered_atlas_modules.append(atlas_module)
 
         self.atlas_modules = ordered_atlas_modules
+
+    def validate_types(self):
+        for atlas_module in self.atlas_modules:
+            module = atlas_module.qface_module
+            print(f"module: {module}")
+            for interface in module.interfaces:
+                print(f"\tinterface: {interface}")
+                for _property in interface.properties:
+                    print(f"\t\t_property: {_property.type.name} {_property.name} (qualified_name: {_property.qualified_name})")
+                    if _property.type.is_list:
+                        self.validate_type_symbol(_property.type.nested.name)
+                    else:
+                        self.validate_type_symbol(_property.type.name)
+                for _operation in interface.operations:
+                    parameters = _operation.parameters
+                    parameters_str = parameters if len(parameters) > 0 else ""
+                    print(f"\t\t_operation: {_operation.type.name} {_operation.name}({ parameters_str }) (qualified_name: {_operation.qualified_name})")
+                    self.validate_type_symbol(_operation.type.name)
+                    for parameter in _operation.parameters:
+                        if parameter.type.is_list:
+                            self.validate_type_symbol(parameter.type.nested.name)
+                        else:
+                            self.validate_type_symbol(parameter.type.name)
+                for _signal in interface.signals:
+                    print(f"\t\t_signal: {_signal.name}")
+            for struct in module.structs:
+                print(f"\tstruct: {struct}")
+                for _field in struct.fields:
+                    print(f"\t\t_field: {_field.type.name} {_field.name} (qualified_name: {_field.qualified_name})")
+                    if _field.type.is_list:
+                        self.validate_type_symbol(_field.type.nested.name)
+                    else:
+                        self.validate_type_symbol(_field.type.name)
+            for enum in module.enums:
+                print(f"\enum: {enum}")
+                for _member in enum.members:
+                    print(f"\t\t_member: {_member.name}={_member.value} (qualified_name: {_member.qualified_name})")
+
+    def validate_type_symbol(self, type_name: str):
+        if isinstance(type_name, str):
+            if type_name in primitive_types:
+                return
+            symbol = self.lookup(type_name)
+            if symbol is None:
+                raise RuntimeError(f"Type ({type_name}) not defined in system")
 
 class AtlasModule(object):
     """ Atlas Module """
@@ -183,5 +240,9 @@ class AtlasGen(object):
                 print(f"\tstruct: {struct}")
                 for _field in struct.fields:
                     print(f"\t\t_field: {_field.type.name} {_field.name} (qualified_name: {_field.qualified_name})")
+            for enum in module.enums:
+                print(f"\enum: {enum}")
+                for _member in enum.members:
+                    print(f"\t\t_member: {_member.name}={_member.value} (qualified_name: {_member.qualified_name})")
 
         pass

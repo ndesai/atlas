@@ -20,19 +20,25 @@ interface Car {
     /**
     * @brief Interior color
     */
-    Color interiorColor
+    atlas.common.Color interiorColor
     /**
     * @brief Vehicle packages
     */
-    list<Package> packages
-
+    list<atlas.car.Package> packages
+    /**
+    * @brief Add packages
+    */
+    void addPackages(list<atlas.car.Package> packages)
     /**
     * @brief Turn car on
     */
     void turnIgnitionOn()
-
     /**
     * @brief Turn car off
     */
     void turnIgnitionOff()
+    /**
+    * @brief Current vehicle speed
+    */
+    atlas.common.Speed currentSpeed
 }

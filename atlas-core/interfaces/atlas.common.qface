@@ -7,6 +7,17 @@ struct Color {
     string hexValue
 }
 
+struct Speed {
+    /**
+    * @brief Kilometers per hour
+    */
+    int kmh
+    /**
+    * @brief Miles per hour
+    */
+    int mph
+}
+
 struct SuperPower {
     /**
     * @brief A description of the super power
@@ -16,4 +27,19 @@ struct SuperPower {
     * @brief The power level of the super power
     */
     int powerLevel
+}
+
+enum DayOfWeek {
+    UNDEFINED = 0,
+    MONDAY = 1,
+    TUESDAY = 2,
+    WEDNESDAY = 3,
+    THURSDAY = 4,
+    FRIDAY = 5,
+    SATURDAY = 6,
+    SUNDAY = 7
+}
+
+struct WeeklySchedule {
+    list<atlas.common.DayOfWeek> daysOfWeek
 }
