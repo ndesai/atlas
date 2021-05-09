@@ -138,7 +138,7 @@ class AtlasSystem(object):
                     else:
                         self.validate_type_symbol(_field.type.name)
             for enum in module.enums:
-                print(f"\enum: {enum}")
+                print(f"\tenum: {enum}")
                 for _member in enum.members:
                     print(f"\t\t_member: {_member.name}={_member.value} (qualified_name: {_member.qualified_name})")
 
@@ -193,10 +193,12 @@ class AtlasEnum(object):
 
 class AtlasGen(object):
     """ AtlasGen """
-
     def __init__(self, interface_path):
+        self.registered_genpacks = list()
+
         self._interface_path = interface_path
-        self.atlas_system = AtlasSystem(None)
+        # self.atlas_system = AtlasSystem(None)
+        self.atlas_system = AtlasSystem(FileSystem.parse(self.interface_path))
 
     @property
     def interface_path(self):
@@ -208,8 +210,14 @@ class AtlasGen(object):
 
     def generate(self):
         print(f"generate interfaces from path: {self.interface_path}")
-        self.atlas_system = AtlasSystem(FileSystem.parse(self.interface_path))
-        # self.log_system(self.atlas_system)
+        # TODO: ND - parallel process this generation
+        for genpack in self.registered_genpacks:
+            genpack.generate()
+
+    def register_genpack(self, genpack):
+        print(f"register_generation: {genpack.__name__}")
+        self.registered_genpacks.append(genpack(self.atlas_system))
+        pass
 
     def log_system(self, system):
         print(f"postprocessing...")
