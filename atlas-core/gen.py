@@ -3,7 +3,7 @@
 import os
 import click
 import atlas
-from genpack import HtmlDocGenPack
+from genpack_htmldoc import HtmlDocGenPack
 
 @click.command()
 @click.option('--interface-path', required=True, help='Interface path')
