@@ -2,8 +2,17 @@
 
 import os
 import click
+from path import Path
+import yaml
+import logging
+import logging.config
 import atlas
 from genpack_htmldoc import HtmlDocGenPack
+
+here = Path(__file__).abspath().dirname()
+
+logging.config.dictConfig(yaml.load((here / 'log.yaml').open()))
+logger = logging.getLogger(__name__)
 
 @click.command()
 @click.option('--interface-path', required=True, help='Interface path')

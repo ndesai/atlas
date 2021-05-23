@@ -3,6 +3,9 @@ from qface.generator import FileSystem, Generator
 import qface.idl.domain as domain
 import typing
 import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 primitive_types = [
     'void',
@@ -57,11 +60,11 @@ class AtlasSystem(object):
         qface_module = self.lookup(module_name)
 
         if not self._is_system_initialized:
-            print(f"ERROR: System is not initialized, unable to lookup {module_name}")
+            logger.error(f"system is not initialized, unable to lookup {module_name}")
             return dependencies
 
         if qface_module is None:
-            print(f"WARNING: qface module not found: {module_name}")
+            logger.warning(f"qface module not found: {module_name}")
             return dependencies
 
         for atlas_import_w_version in qface_module.imports:

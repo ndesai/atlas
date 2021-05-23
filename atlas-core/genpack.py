@@ -1,5 +1,8 @@
 from path import Path
 import atlas
+import logging
+
+logger = logging.getLogger(__name__)
 
 class GenPack(object):
     """ A Generation Pack """
