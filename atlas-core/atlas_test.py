@@ -23,7 +23,6 @@ def test_invalid_atlas_system():
     atlas_gen = atlas.AtlasGen(interface_path=interface_path)
     # Generate was never called, the system will not be initialized
     assert atlas_gen.system != None
-    assert atlas_gen.system.is_system_initialized == False
 
 def test_module_order(atlas_gen):
     # Modules should be ordered based on their dependencies
