@@ -22,6 +22,8 @@ class AtlasFormatter:
 
     @staticmethod
     def format_module_name(name: str, delimiter: str, prefix: str = '', suffix: str = ''):
+        if prefix:
+            prefix = f"{prefix}{delimiter}"
         return f"{prefix}{delimiter.join(name.split('.'))}{suffix}"
 
 class AtlasSystem(object):
@@ -40,6 +42,13 @@ class AtlasSystem(object):
     def lookup(self, name: str):
         """ Lookup a symbol in the qface_system """
         return self.qface_system.lookup(name)
+
+    def lookup_module(self, name: str):
+        """ Lookup an atlas module """
+        for atlas_module in self.atlas_modules:
+            if atlas_module.name == name:
+                return atlas_module
+        return None
 
     def process_modules(self):
         """ Process the modules from the qface_system into the atlas system """
@@ -173,6 +182,10 @@ class AtlasModule(object):
     def name(self):
         return self.qface_module.name
 
+    @property
+    def name_split(self):
+        return self.qface_module.name.split('.')
+
     def formatted_name(self, delimiter: str, prefix: str = '', suffix: str = ''):
         return AtlasFormatter.format_module_name(self.qface_module.name, delimiter, prefix, suffix)
 
@@ -180,7 +193,7 @@ class AtlasModule(object):
     def imported_modules(self):
         modules = list()
         for imported_module_name, imported_module_str in self.qface_module._importMap.items():
-            imported_module_symbol = self.atlas_system.lookup(imported_module_name)
+            imported_module_symbol = self.atlas_system.lookup_module(imported_module_name)
             if imported_module_symbol:
                 modules.append(imported_module_symbol)
         return modules

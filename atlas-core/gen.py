@@ -7,7 +7,6 @@ import yaml
 import logging
 import logging.config
 import atlas
-from genpack_htmldoc import HtmlDocGenPack
 
 here = Path(__file__).abspath().dirname()
 
@@ -19,8 +18,15 @@ logger = logging.getLogger(__name__)
 def main(interface_path):
     """ Generate files """
     atlas_gen = atlas.AtlasGen(interface_path=os.path.abspath(interface_path))
+
+    from genpack_htmldoc import HtmlDocGenPack
     atlas_gen.register_genpack(HtmlDocGenPack)
+
+    from genpack_cpp import CppGenPack
+    atlas_gen.register_genpack(CppGenPack)
+
     atlas_gen.generate()
+    pass
 
 if __name__ == '__main__':
     main()
