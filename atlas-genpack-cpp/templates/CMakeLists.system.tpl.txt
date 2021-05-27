@@ -1,0 +1,36 @@
+{{ notice_cmake }}
+cmake_minimum_required(VERSION 3.16)
+project(AtlasGenerated)
+
+file(GLOB_RECURSE
+    HDRS_ATLAS_GENERATED
+{% for module in system.atlas_modules %}
+    {{ module | format_name('/') }}/*.h
+{% endfor %}
+)
+
+file(GLOB_RECURSE
+    SRCS_ATLAS_GENERATED
+{% for module in system.atlas_modules %}
+    {{ module | format_name('/') }}/*.cpp
+{% endfor %}
+)
+
+add_library(
+    atlas-generated
+    SHARED
+        ${HDRS_ATLAS_GENERATED}
+        ${SRCS_ATLAS_GENERATED}
+)
+
+target_link_libraries(
+    atlas-generated
+    atlas
+)
+
+include_directories(${CMAKE_CURRENT_LIST_DIR})
+
+target_include_directories(atlas-generated
+    PUBLIC
+        "${CMAKE_CURRENT_LIST_DIR}/"
+)

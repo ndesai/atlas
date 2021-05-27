@@ -12,7 +12,7 @@ class GenPack(object):
         self.atlas_system = atlas_system
         self.template_path = ''
         self._generator = None
-        self.context = { 'system': self.atlas_system.qface_system }
+        self.context = { 'system': self.atlas_system }
         self.filters = dict()
         pass
 

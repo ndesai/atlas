@@ -1,0 +1,28 @@
+{{ notice_cmake }}
+cmake_minimum_required(VERSION 3.16)
+project(Atlas LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 14)
+
+file(GLOB
+    HDRS_ATLAS_COMMON
+    ${CMAKE_CURRENT_LIST_DIR}/src/*.h
+)
+
+file(GLOB
+    SRCS_ATLAS_COMMON
+    ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp
+)
+
+add_library(
+    atlas
+    SHARED
+        ${HDRS_ATLAS_COMMON}
+        ${SRCS_ATLAS_COMMON}
+)
+
+target_include_directories(atlas
+    PUBLIC
+        ${CMAKE_CURRENT_LIST_DIR}/src
+)
+
+add_subdirectory({{ generated_system_folder }})
