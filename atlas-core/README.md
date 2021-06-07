@@ -5,5 +5,5 @@
 ## Build
 
 ```bash
-python3 generate.py
+python3 gen.py
 ```
